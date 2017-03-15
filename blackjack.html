@@ -3,33 +3,43 @@
   <head>
     <meta charset="utf-8">
     <meta name="description" content="" />
-    <title>Hello from Apple JS</title>
-    <link rel="stylesheet" href="dhaval_aapl.css" />
+    <title>Blackjack in JS</title>
+    <link rel="stylesheet" href="blackjack.css" />
     <link rel="icon" href="./favicon.ico" size="16x16" type="image/png" />
   </head>
   <body>
     <header>
-      <h1>Sample blackjack game:</h1>
+      <!-- <h1>Sample blackjack game:</h1> -->
     </header>
     <main>
-      <div id="dealerHand"></div>
-      <div id="yourHand"></div>
-      <div id="yourScore">
-        Your Score: <span class="digits">0</span>
-        Record: <span id="wins">0</span>
-        &nbsp;/&nbsp;
-        <span id="losses">0</span>
-        Percentage: <span id="percentage">0 %</span>
+      <div class="wrapper">
+        <div id="hands_container">
+          <div id="dealer_hand"></div>
+          <div id="player_hand"></div>
+        </div>
+
+        <div id="right_container">
+          <div id="score_container">
+            Your Score: <span class="digits">0</span>
+            Record: <span id="wins">0</span>
+            &nbsp;/&nbsp;
+            <span id="losses">0</span>
+            Percentage: <span id="percentage">0 %</span>
+          </div>
+          <div class="button_container">
+            <button id="deal">Deal</button>
+            <button id="hit_me">Hit</button>
+            <button id="stand">Stand</button>
+          </div>
+        </div>
       </div>
-      <button id="deal">Deal</button>
-      <button id="hitMe">Hit</button>
-      <button id="stand">Stand</button>
+
     </main>
 
     <footer>
       Copyright - 2017 @Dhaval
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="./dhaval_aapl.js"></script>
+    <script src="./blackjack.js"></script>
   </body>
 </html>

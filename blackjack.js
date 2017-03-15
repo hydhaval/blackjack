@@ -157,7 +157,7 @@ let Hand = function (deck) {
         return arrayOut.join();
     };
     /** Adds a Card from the Deck into the Hand. */
-    this.hitMe = () => {
+    this.hit_me = () => {
         if (cards.length < 5){
             cards.push(deck.deal());
         }
@@ -184,9 +184,9 @@ let Hand = function (deck) {
     let losses = 0;
 
     /** Tally the score to determine the outcome. */
-    let declareWinner = (userHand, dealerHand) => {
+    let declareWinner = (userHand, dealer_hand) => {
         let outcome = '',
-            dealerScore = dealerHand.score(),
+            dealerScore = dealer_hand.score(),
             userScore = userHand.score();
 
         /* I didn't make the rules, I just enforce them. */
@@ -196,7 +196,7 @@ let Hand = function (deck) {
         }else if (userScore <= 21 && userHand.getHand().length >=5){
             outcome = "You win!";
             wins++;
-        }else if (dealerScore > 21 || userScore === 21 || userScore > dealerHand.score()){
+        }else if (dealerScore > 21 || userScore === 21 || userScore > dealer_hand.score()){
             outcome = "You win!";
             wins++;
         }else if (dealerScore > userScore){
@@ -206,28 +206,28 @@ let Hand = function (deck) {
             outcome = "You tied!";
         }
         /* Output the result of the round. */
-        return outcome+"<br />Dealer: "+dealerHand.score()+"<br />You: "+userScore;
+        return outcome+"<br />Dealer: "+dealer_hand.score()+"<br />You: "+userScore;
     };
 
-    let dealerHand = () => {
+    let dealer_hand = () => {
         let hand = new Hand(deck);
 
         while (hand.score() < 17){
-            hand.hitMe();
+            hand.hit_me();
         }
         return hand;
     };
 
     /** Holds your Hand */
-    let yourHand;
+    let player_hand;
 
     /* CACHE SELECTORS!!! */
-    let $hitButton = $("#hitMe"),
+    let $hitButton = $("#hit_me"),
         $standButton = $("#stand"),
         $dealButton = $("#deal"),
-        $score = $("#yourScore"),
-        $yourHand = $('#yourHand'),
-        $dealerHand = $('#dealerHand');
+        $score = $("#score_container"),
+        $player_hand = $('#player_hand'),
+        $dealer_hand = $('#dealer_hand');
 
     /** Show the Deal button, hide others. */
     let showDeal = () => {
@@ -248,9 +248,9 @@ let Hand = function (deck) {
     /** Update your score and card display. */
     let updateUI = () => {
         /* Cards */
-        $yourHand.html(yourHand.toHtml());
+        $player_hand.html(player_hand.toHtml());
         /* Score */
-        $score.find(".digits").html(yourHand.score());
+        $score.find(".digits").html(player_hand.score());
         $('#percentage').text(Number((wins*100)/(wins + losses)).toPrecision(3) + ' %');
         $("#wins").text(wins);
         $("#losses").text(losses);
@@ -258,15 +258,15 @@ let Hand = function (deck) {
 
     /* Deal Button */
     $dealButton.on('click', () => {
-        yourHand = new Hand(deck);
+        player_hand = new Hand(deck);
         updateUI();
         showControls();
     });
 
     /* Hit Button */
     $hitButton.on('click', () => {
-        yourHand.hitMe();
-        if (yourHand.getHand().length >= 5 || yourHand.score() > 21){
+        player_hand.hit_me();
+        if (player_hand.getHand().length >= 5 || player_hand.score() > 21){
             $standButton.trigger('click');
         }else{
             updateUI();
@@ -275,7 +275,7 @@ let Hand = function (deck) {
 
     /* Stand Button */
     $standButton.on('click', () => {
-        $yourHand.html(declareWinner(yourHand, dealerHand()));
+        $player_hand.html(declareWinner(player_hand, dealer_hand()));
         showDeal();
     });
 
