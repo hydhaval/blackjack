@@ -249,6 +249,7 @@ let Hand = function (deck) {
     let updateUI = () => {
         /* Cards */
         $player_hand.html(player_hand.toHtml());
+        $dealer_hand.html(dealer_hand.toHtml());
         /* Score */
         $score.find(".digits").html(player_hand.score());
         $('#percentage').text(Number((wins*100)/(wins + losses)).toPrecision(3) + ' %');
@@ -259,6 +260,7 @@ let Hand = function (deck) {
     /* Deal Button */
     $dealButton.on('click', () => {
         player_hand = new Hand(deck);
+        dealer_hand = dealer_hand();
         updateUI();
         showControls();
     });
@@ -275,7 +277,7 @@ let Hand = function (deck) {
 
     /* Stand Button */
     $standButton.on('click', () => {
-        $player_hand.html(declareWinner(player_hand, dealer_hand()));
+        $player_hand.html(declareWinner(player_hand, dealer_hand));
         showDeal();
     });
 
